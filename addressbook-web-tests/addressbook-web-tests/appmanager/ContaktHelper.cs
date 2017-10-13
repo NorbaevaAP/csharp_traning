@@ -25,14 +25,25 @@ namespace WebAddressbookTests
             return this;
         }
 
+        public ContaktHelper Modify(int v, ContaktData newData)
+        {
+            manager.Navigator.GoToHomePage();
+            SelectContakt(v);
+            InitContaktModification(v);
+            FillContaktForm(newData);
+            SubmitContaktModification();
+            manager.Navigator.GoToMainPage();
+            return this;
+        }
+
         public ContaktHelper Remove(int v)
         {
-            SelectContakt(1);
+            SelectContakt(v);
             RemoveContact();
             return this;
         }
 
-        public ContaktHelper GoExit()
+         public ContaktHelper GoExit()
         {
             driver.FindElement(By.LinkText("Logout")).Click();
             driver.FindElement(By.Name("user")).Clear();
@@ -133,6 +144,17 @@ namespace WebAddressbookTests
             {
                 return false;
             }
+        }
+        public ContaktHelper SubmitContaktModification()
+        {
+            driver.FindElement(By.Name("update")).Click();
+            return this;
+        }
+
+        public ContaktHelper InitContaktModification(int index)
+        {
+            driver.FindElement(By.XPath("(//img[@alt='Edit'])[" + index + "]")).Click();
+            return this;
         }
     }
 }
