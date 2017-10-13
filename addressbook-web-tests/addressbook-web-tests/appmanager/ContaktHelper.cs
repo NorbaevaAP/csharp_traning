@@ -7,105 +7,40 @@ using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Support.UI;
-
+using System.Text.RegularExpressions;
 
 namespace WebAddressbookTests
 {
-    public class TestBase
+    public class ContaktHelper : HalperBase
     {
-        protected IWebDriver driver;
-        private StringBuilder verificationErrors;
-        protected string baseURL;
+        private bool acceptNextAlert;
 
-        [SetUp]
-        public void SetupTest()
+        public ContaktHelper(ApplicationManager manager)
+            : base(manager)
         {
-            driver = new FirefoxDriver(new FirefoxBinary("C:\\Program Files\\Mozilla Firefox\\firefox.exe"), new FirefoxProfile());
-            baseURL = "http://localhost";
-            verificationErrors = new StringBuilder();
         }
-
-        [TearDown]
-        public void TeardownTest()
-        {
-            try
-            {
-                driver.Quit();
-            }
-            catch (Exception)
-            {
-                // Ignore errors if unable to close the browser
-            }
-            Assert.AreEqual("", verificationErrors.ToString());
-        }
-        protected void GoToHomePage()
-        {
-            driver.Navigate().GoToUrl(baseURL + "/addressbook/addressbook/");
-        }
-        protected void Login(AccountData account)
-        {
-            driver.FindElement(By.Name("user")).Clear();
-            driver.FindElement(By.Name("user")).SendKeys(account.Username);
-            driver.FindElement(By.Name("pass")).Clear();
-            driver.FindElement(By.Name("pass")).SendKeys(account.Password);
-            driver.FindElement(By.CssSelector("input[type=\"submit\"]")).Click();
-        }
-        protected void GoToGroupsPage()
-        {
-            driver.FindElement(By.LinkText("groups")).Click();
-        }
-        protected void Initnewgroupcreation()
-        {
-            driver.FindElement(By.Name("new")).Click();
-        }
-        protected void Fillgroupform(GroupData group)
-        {
-            driver.FindElement(By.Name("group_name")).Clear();
-            driver.FindElement(By.Name("group_name")).SendKeys(group.Name);
-            driver.FindElement(By.Name("group_header")).Clear();
-            driver.FindElement(By.Name("group_header")).SendKeys(group.Header);
-            driver.FindElement(By.Name("group_footer")).Clear();
-            driver.FindElement(By.Name("group_footer")).SendKeys(group.Footer);
-        }
-        protected void Submitgroupcreation()
-        {
-            driver.FindElement(By.Name("submit")).Click();
-        }
-        protected void Returntogrouppage()
-        {
-            driver.FindElement(By.LinkText("group page")).Click();
-            driver.FindElement(By.LinkText("Logout")).Click();
-        }
-        protected void SelectGroup(int index)
-        {
-            driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + index + "]")).Click();
-        }
-        protected void RemoveGroup()
-        {
-            driver.FindElement(By.Name("delete")).Click();
-        }
-        protected void ReturnToGroupPage()
-        {
-            driver.FindElement(By.LinkText("group page")).Click();
-        }
-        protected void SubmitContaktCreation()
+        public ContaktHelper SubmitContaktCreation()
         {
             driver.FindElement(By.CssSelector("input[type=\"submit\"]")).Click();
+            return this;
         }
 
-        protected void GoExit()
+        public ContaktHelper Remove(int v)
+        {
+            SelectContakt(1);
+            RemoveContact();
+            return this;
+        }
+
+        public ContaktHelper GoExit()
         {
             driver.FindElement(By.LinkText("Logout")).Click();
             driver.FindElement(By.Name("user")).Clear();
             driver.FindElement(By.Name("user")).SendKeys("admin");
+            return this;
         }
 
-        protected void GoToMainPage()
-        {
-            driver.FindElement(By.LinkText("home page")).Click();
-        }
-
-        protected void FillContaktForm(ContaktData group)
+        public ContaktHelper FillContaktForm(ContaktData group)
         {
             driver.FindElement(By.Name("firstname")).Clear();
             driver.FindElement(By.Name("firstname")).SendKeys(group.Firstname);
@@ -143,12 +78,61 @@ namespace WebAddressbookTests
             driver.FindElement(By.Name("phone2")).SendKeys(group.Phone2);
             driver.FindElement(By.Name("notes")).Clear();
             driver.FindElement(By.Name("notes")).SendKeys(group.Notes);
+            return this;
         }
 
-        protected void InitnewContaktCreation()
+        public ContaktHelper InitnewContaktCreation()
         {
             driver.FindElement(By.CssSelector("input[type=\"submit\"]")).Click();
             driver.FindElement(By.LinkText("add new")).Click();
+            return this;
+        }
+
+        public ContaktHelper SelectContakt(int index)
+        {
+            driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + index + "]")).Click();
+            return this;
+        }
+
+        public ContaktHelper RemoveContact()
+        {
+            driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
+            Assert.IsTrue(Regex.IsMatch(CloseAlertAndGetItsText(), "^Delete 1 addresses[\\s\\S]$"));
+            return this;
+        }
+
+        public string CloseAlertAndGetItsText()
+        {
+            try
+            {
+                IAlert alert = driver.SwitchTo().Alert();
+                string alertText = alert.Text;
+                if (acceptNextAlert)
+                {
+                    alert.Accept();
+                }
+                else
+                {
+                    alert.Dismiss();
+                }
+                return alertText;
+            }
+            finally
+            {
+                acceptNextAlert = true;
+            }
+        }
+        public bool IsAlertPresent()
+        {
+            try
+            {
+                driver.SwitchTo().Alert().Accept();
+                return true;
+            }
+            catch (NoAlertPresentException)
+            {
+                return false;
+            }
         }
     }
 }

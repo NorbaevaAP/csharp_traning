@@ -13,16 +13,19 @@ namespace WebAddressbookTests//уникальное пространство и�
         [Test]  //тестовый метод
         public void GroupCreationTest() // тестовый метод дб уникальным
         {
-            GoToHomePage();
-            Login(new AccountData("admin", "secret"));
-            GoToGroupsPage();
-            Initnewgroupcreation();
             GroupData group = new GroupData("aaa");
             group.Header = "ddd";
             group.Footer = "fff";
-            Fillgroupform(group);
-            Submitgroupcreation();
-            Returntogrouppage();
+            app.Groups.Create(group);
+        }
+
+        [Test]  //тестовый метод создает группу с пустыми именами
+        public void EmptyGroupCreationTest() // тестовый метод дб уникальным
+        {
+            GroupData group = new GroupData("aaa");
+            group.Header = "";
+            group.Footer = "";
+            app.Groups.Create(group);
         }
     }
 }

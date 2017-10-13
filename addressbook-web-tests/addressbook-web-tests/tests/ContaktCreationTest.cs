@@ -13,14 +13,12 @@ namespace WebAddressbookTests
         [Test]
         public void ContaktCreationTest()
         {
-            GoToHomePage();
-            Login(new AccountData("admin", "secret"));
-            InitnewContaktCreation();
             ContaktData group = new ContaktData("a", "a");
-            FillContaktForm(group);
-            SubmitContaktCreation();
-            GoToMainPage();
-            GoExit();
+            app.Contakts
+                .InitnewContaktCreation()
+                .FillContaktForm(group)
+                .SubmitContaktCreation()
+                .GoExit();
         }
     }
 }
