@@ -8,14 +8,14 @@ using NUnit.Framework;
 namespace WebAddressbookTests//уникальное пространство имен для всех тестов
 {
     [TestFixture] //атрибуты 
-    public class GroupCreationTests : TestBase // класс должен быть уникальным
+    public class GroupCreationTests : AuthTestBase // класс должен быть уникальным
     { 
         [Test]  //тестовый метод
         public void GroupCreationTest() // тестовый метод дб уникальным
         {
             GroupData group = new GroupData("aaa");
-            group.Header = "ddd";
-            group.Footer = "fff";
+            group.Header = null;
+            group.Footer = null;
             app.Groups.Create(group);
         }
 

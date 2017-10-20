@@ -64,6 +64,7 @@
     <Compile Include="appmanager\ApplicationManager.cs" />
     <Compile Include="Circle.cs" />
     <Compile Include="appmanager\ContaktHelper.cs" />
+    <Compile Include="tests\AuthTestBase.cs" />
     <Compile Include="tests\ContaktRemovalTest.cs" />
     <Compile Include="appmanager\GroupHelper.cs" />
     <Compile Include="tests\GroupRemovalTests.cs" />
@@ -74,10 +75,12 @@
     <Compile Include="appmanager\LoginHelper.cs" />
     <Compile Include="appmanager\NavigationHelper.cs" />
     <Compile Include="Square.cs" />
+    <Compile Include="tests\LoginTests.cs" />
     <Compile Include="tests\TestBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="tests\GroupCreationTest.cs" />
     <Compile Include="tests\ContaktCreationTest.cs" />
+    <Compile Include="tests\TestSuiteFixture.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

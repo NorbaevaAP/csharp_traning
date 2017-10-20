@@ -12,7 +12,7 @@ using System.Text.RegularExpressions;
 namespace WebAddressbookTests
 {
     [TestFixture]
-    public class ContaktModificationTests : TestBase
+    public class ContaktModificationTests : AuthTestBase
     {
         [Test]
         public void ContaktModificationTest()
