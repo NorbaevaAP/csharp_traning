@@ -19,6 +19,11 @@ namespace WebAddressbookTests
         {
             ContaktData newData = new ContaktData("pp", "ss");
 
+            if (!app.Contakts.CheckAnyExsists())
+            {
+                ContaktCreationTests.CreateContact(app);
+            }
+
             app.Contakts.Modify(1, newData);
         }
     }

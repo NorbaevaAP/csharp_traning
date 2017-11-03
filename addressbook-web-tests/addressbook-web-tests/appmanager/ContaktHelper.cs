@@ -43,7 +43,7 @@ namespace WebAddressbookTests
             return this;
         }
 
-         public ContaktHelper GoExit()
+        public ContaktHelper GoExit()
         {
             driver.FindElement(By.LinkText("Logout")).Click();
             driver.FindElement(By.Name("user")).Clear();
@@ -74,12 +74,26 @@ namespace WebAddressbookTests
             return this;
         }
 
-        public ContaktHelper InitnewContaktCreation()
+        public ContaktHelper InitNewContaktCreation()
         {
             driver.FindElement(By.CssSelector("input[type=\"submit\"]")).Click();
             driver.FindElement(By.LinkText("add new")).Click();
             return this;
         }
+
+        public bool CheckAnyExsists()
+        {
+            try
+            {
+                driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + 1 + "]"));
+                return true;
+            }
+            catch (NoSuchElementException ex)
+            {
+                return false;
+            }
+        }
+
 
         public ContaktHelper SelectContakt(int index)
         {
@@ -90,6 +104,7 @@ namespace WebAddressbookTests
         public ContaktHelper RemoveContact()
         {
             driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
+            System.Threading.Thread.Sleep(1000);
             Assert.IsTrue(Regex.IsMatch(CloseAlertAndGetItsText(), "^Delete 1 addresses[\\s\\S]$"));
             return this;
         }
@@ -115,6 +130,7 @@ namespace WebAddressbookTests
                 acceptNextAlert = true;
             }
         }
+
         public bool IsAlertPresent()
         {
             try
@@ -127,6 +143,7 @@ namespace WebAddressbookTests
                 return false;
             }
         }
+
         public ContaktHelper SubmitContaktModification()
         {
             driver.FindElement(By.Name("update")).Click();

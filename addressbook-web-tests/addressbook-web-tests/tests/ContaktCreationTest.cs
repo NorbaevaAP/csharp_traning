@@ -13,12 +13,17 @@ namespace WebAddressbookTests
         [Test]
         public void ContaktCreationTest()
         {
-            ContaktData group = new ContaktData("a", "a");
+            CreateContact(app);
+            app.Contakts.GoExit();
+        }
+
+        public static void CreateContact(ApplicationManager app)
+        {
+            ContaktData group = new ContaktData("a1", "a1");
             app.Contakts
-                .InitnewContaktCreation()
+                .InitNewContaktCreation()
                 .FillContaktForm(group)
-                .SubmitContaktCreation()
-                .GoExit();
+                .SubmitContaktCreation();
         }
     }
 }

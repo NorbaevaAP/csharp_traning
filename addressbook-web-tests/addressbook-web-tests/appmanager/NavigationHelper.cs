@@ -15,17 +15,19 @@ namespace WebAddressbookTests
     {
         private string baseURL;
 
-        public NavigationHelper(ApplicationManager manager,string baseURL)
+        public NavigationHelper(ApplicationManager manager, string baseURL)
             : base(manager)
         {
             this.baseURL = baseURL;
         }
+
         public void GoToHomePage()
         {
             if (driver.Url == baseURL + "/addressbook/addressbook/")
             {
                 return;
             }
+
             driver.Navigate().GoToUrl(baseURL + "/addressbook/addressbook/");
         }
 
@@ -36,6 +38,7 @@ namespace WebAddressbookTests
             {
                 return;
             }
+
             driver.FindElement(By.LinkText("groups")).Click();
         }
 
@@ -45,6 +48,7 @@ namespace WebAddressbookTests
             {
                 return;
             }
+
             driver.FindElement(By.LinkText("home page")).Click();
         }
     }

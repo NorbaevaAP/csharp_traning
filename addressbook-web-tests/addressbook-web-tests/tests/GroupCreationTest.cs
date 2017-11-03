@@ -27,5 +27,10 @@ namespace WebAddressbookTests//уникальное пространство и�
             group.Footer = "";
             app.Groups.Create(group);
         }
+
+        internal static void CreateGroup(ApplicationManager app)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

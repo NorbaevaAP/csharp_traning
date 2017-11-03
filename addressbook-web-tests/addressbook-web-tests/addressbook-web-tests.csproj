@@ -58,18 +58,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ContaktModificationTests.cs" />
-    <Compile Include="GroupModificationTests.cs" />
+    <Compile Include="modification\ContaktModificationTests.cs" />
+    <Compile Include="modification\GroupModificationTests.cs" />
     <Compile Include="model\AccountData.cs" />
     <Compile Include="appmanager\ApplicationManager.cs" />
-    <Compile Include="Circle.cs" />
+    <Compile Include="tests\Circle.cs" />
     <Compile Include="appmanager\ContaktHelper.cs" />
     <Compile Include="tests\AuthTestBase.cs" />
     <Compile Include="tests\ContaktRemovalTest.cs" />
     <Compile Include="appmanager\GroupHelper.cs" />
     <Compile Include="tests\GroupRemovalTests.cs" />
     <Compile Include="model\ContaktData.cs" />
-    <Compile Include="Figure.cs" />
+    <Compile Include="tests\Figure.cs" />
     <Compile Include="model\GroupData.cs" />
     <Compile Include="appmanager\HalperBase.cs" />
     <Compile Include="appmanager\LoginHelper.cs" />

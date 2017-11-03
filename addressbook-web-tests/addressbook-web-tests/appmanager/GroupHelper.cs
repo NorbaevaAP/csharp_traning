@@ -29,6 +29,20 @@ namespace WebAddressbookTests
             return this;
         }
 
+        public bool CheckAnyExsists()
+        {
+            try
+            {
+                driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + 1 + "]")).Click();
+                return true;
+            }
+            catch (NoSuchElementException ex)
+            {
+                return false;
+            }
+        }
+
+
         public GroupHelper Modify(int v, GroupData newData)
         {
             manager.Navigator.GoToGroupsPage();
@@ -67,22 +81,26 @@ namespace WebAddressbookTests
             driver.FindElement(By.Name("submit")).Click();
             return this;
         }
+
         public GroupHelper SelectGroup(int index)
         {
             driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + index + "]")).Click();
             return this;
         }
+
         public GroupHelper RemoveGroup()
         {
             driver.FindElement(By.Name("delete")).Click();
             return this;
         }
+
         public GroupHelper ReturnToGroupPage()
         {
             driver.FindElement(By.LinkText("group page")).Click();
             driver.FindElement(By.LinkText("Logout")).Click();
             return this;
         }
+
         public GroupHelper SubmitGroupModification()
         {
             driver.FindElement(By.Name("update")).Click();

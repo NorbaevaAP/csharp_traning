@@ -14,6 +14,12 @@ namespace WebAddressbookTests
         [Test]
         public void ContaktRemovalTest()
         {
+            if (!app.Contakts.CheckAnyExsists())
+            {
+                ContaktCreationTests.CreateContact(app);
+                app.Navigator.GoToHomePage();
+            }
+
             app.Contakts.Remove(1);
         }
 
