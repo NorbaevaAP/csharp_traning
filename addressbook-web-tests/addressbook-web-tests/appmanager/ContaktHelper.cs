@@ -15,6 +15,19 @@ namespace WebAddressbookTests
     {
         private bool acceptNextAlert;
 
+        public List<ContaktData> GetContaktList()
+        {
+            List<ContaktData> contakts = new List<ContaktData>();
+            manager.Navigator.GoToHomePage();
+            ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("tr"));
+            foreach (IWebElement element in elements)
+            {
+                contakts.Add(new ContaktData(element.Text));
+            }
+
+            return contakts;
+        }
+
         public ContaktHelper(ApplicationManager manager)
             : base(manager)
         {

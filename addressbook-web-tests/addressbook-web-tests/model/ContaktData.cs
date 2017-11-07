@@ -26,6 +26,12 @@ namespace WebAddressbookTests
         private string address2 = "";
         private string phone2 = "";
         private string notes = "";
+        private string text;
+
+        public ContaktData(string text)
+        {
+            this.text = text;
+        }
 
         public ContaktData(string firstname, string middlename)
         {

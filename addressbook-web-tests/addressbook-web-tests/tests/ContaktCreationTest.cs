@@ -2,6 +2,7 @@
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
+using System.Collections.Generic;
 using NUnit.Framework;
 
 
@@ -13,7 +14,13 @@ namespace WebAddressbookTests
         [Test]
         public void ContaktCreationTest()
         {
+            List<ContaktData> oldContakts = app.Contakts.GetContaktList();
+
             CreateContact(app);
+
+            List<ContaktData> newContakts = app.Contakts.GetContaktList();
+            Assert.AreEqual(oldContakts.Count + 1, newContakts.Count);
+
             app.Contakts.GoExit();
         }
 
